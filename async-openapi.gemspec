@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "async-http-faraday", "~> 0.11"
   spec.add_dependency "faraday", "~> 2.7.0"
   spec.add_dependency "json_schemer", "~> 0.2.0"
+  spec.add_dependency "memery", "~> 1.4.0"
   spec.add_dependency "oj", "~> 3.13.0"
   spec.add_dependency "zeitwerk", "~> 2.6.0"
 

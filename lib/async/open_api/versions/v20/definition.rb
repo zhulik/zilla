@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Versions::V20::Definition
+  include Memery
   attr_reader :raw, :paths, :definitions
 
   def initialize(json)
@@ -9,7 +10,7 @@ class Async::OpenAPI::Versions::V20::Definition
     @paths = wrap_values(@raw.fetch("paths", {}), Async::OpenAPI::Versions::V20::Path)
   end
 
-  def info = @info ||= OpenStruct.new(raw["info"]) # rubocop:disable Style/OpenStructUse
+  memoize def info = OpenStruct.new(raw["info"]) # rubocop:disable Style/OpenStructUse
 
   private
 

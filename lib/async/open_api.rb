@@ -6,6 +6,7 @@ require "faraday"
 require "oj"
 require "zeitwerk"
 require "json_schemer"
+require "memery"
 
 loader = Zeitwerk::Loader.new
 
