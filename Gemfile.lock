@@ -11,6 +11,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     async (2.3.1)
       console (~> 1.10)
@@ -36,6 +38,8 @@ GEM
     childprocess (4.1.0)
     console (1.16.2)
       fiber-local
+    crack (0.4.5)
+      rexml
     diff-lcs (1.5.0)
     docile (1.4.0)
     e2mmap (0.1.0)
@@ -44,6 +48,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     fiber-local (1.0.0)
+    hashdiff (1.0.1)
     iniparse (1.5.0)
     io-event (1.1.6)
     jaro_winkler (1.5.4)
@@ -69,6 +74,7 @@ GEM
     protocol-http2 (0.14.2)
       protocol-hpack (~> 1.4)
       protocol-http (~> 0.18)
+    public_suffix (5.0.1)
     racc (1.6.2)
     rainbow (3.1.1)
     rake (13.0.6)
@@ -137,6 +143,10 @@ GEM
     timers (4.3.5)
     traces (0.8.0)
     unicode-display_width (2.4.2)
+    webmock (3.18.1)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.7.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
@@ -155,6 +165,7 @@ DEPENDENCIES
   rubocop-rspec
   simplecov
   solargraph
+  webmock
 
 BUNDLED WITH
    2.4.1

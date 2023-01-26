@@ -17,3 +17,4 @@ gem "rubocop-rspec"
 
 gem "overcommit"
 gem "solargraph"
+gem "webmock"

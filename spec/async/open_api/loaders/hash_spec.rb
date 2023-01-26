@@ -8,7 +8,7 @@ RSpec.describe Async::OpenAPI::Loaders::Hash do
 
     let(:hash) { {} }
 
-    it "returns json" do
+    it "returns hash" do
       expect(subject).to be_an_instance_of(Hash)
     end
   end

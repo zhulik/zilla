@@ -7,9 +7,9 @@ module Async::OpenAPI::ClientFactory
 
   class << self
     def build(definition_url)
-      conn = Faraday.new(definition_url) do |f|
+      Faraday.new(definition_url) do |f|
         f.adapter :async_http
-      end
+      end.get.body
 
       definition = Oj.load(conn.get.body, symbolize_names: true)
       CLIENTS[definition[:swagger]].new(definition)

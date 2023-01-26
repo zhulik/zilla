@@ -7,6 +7,7 @@ SimpleCov.start
 require "async/open_api"
 
 require "syntax_suggest"
+require "webmock/rspec"
 
 Dir["#{__dir__}/support/**/*.rb"].each { |f| load(f) }
 
