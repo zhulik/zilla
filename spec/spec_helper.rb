@@ -8,6 +8,7 @@ require "async/open_api"
 
 require "syntax_suggest"
 require "webmock/rspec"
+require "async/rspec"
 
 Dir["#{__dir__}/support/**/*.rb"].each { |f| load(f) }
 
@@ -23,4 +24,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include_context(Async::RSpec::Reactor)
+  config.include_context(Support::Fixtures)
 end
