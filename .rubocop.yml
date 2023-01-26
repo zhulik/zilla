@@ -42,3 +42,6 @@ Style/WordArray:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+
+RSpec/NestedGroups:
+  Max: 5

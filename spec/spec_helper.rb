@@ -4,6 +4,10 @@ require "async/open_api"
 
 require "syntax_suggest"
 
+Dir["#{__dir__}/support/**/*.rb"].each { |f| load(f) }
+
+RSPEC_ROOT = __dir__
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
