@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Versions::V20::Definition
-  attr_reader :raw
+  attr_reader :raw, :paths, :definitions
 
   def initialize(json)
     @raw = json
+    @paths = wrap_values(@raw.fetch(:paths, {}), Async::OpenAPI::Versions::V20::Path)
+    @definitions = wrap_values(@raw.fetch(:definitions, {}), Async::OpenAPI::Versions::V20::Model)
   end
 
   [:title, :version].each do |name|
@@ -13,15 +15,11 @@ class Async::OpenAPI::Versions::V20::Definition
     end
   end
 
-  def paths
-    @paths ||= @raw[:paths].each.with_object({}) do |(path, definition), acc|
-      acc[path] = Async::OpenAPI::Versions::V20::Path.new(path, definition)
-    end
-  end
+  private
 
-  def definitions
-    @definitions ||= @raw[:definitions].each.with_object({}) do |(path, definition), acc|
-      acc[path] = Async::OpenAPI::Versions::V20::Model.new(path, definition)
+  def wrap_values(hash, klass)
+    hash.each_with_object({}) do |(k, v), acc|
+      acc[k] = klass.new(k, v)
     end
   end
 
