@@ -4,15 +4,15 @@ module Async::OpenAPI::LoaderFactory
   class UnknownLoader < Async::OpenAPI::Error; end
 
   class << self
-    def build(definition_url)
-      case definition_url
+    def build(input)
+      case input
       when Hash
         Async::OpenAPI::Loaders::Hash
       when String
-        for_string(definition_url)
-      end.new(definition_url)
+        for_string(input)
+      end.new(input)
     rescue NoMethodError
-      raise UnknownLoader, "cannot find loader for #{definition_url.inspect}"
+      raise UnknownLoader, "cannot find loader for #{input.inspect}"
     end
 
     private

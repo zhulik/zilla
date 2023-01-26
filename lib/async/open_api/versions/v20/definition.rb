@@ -14,13 +14,13 @@ class Async::OpenAPI::Versions::V20::Definition
   end
 
   def paths
-    @paths = @raw[:paths].each.with_object({}) do |(path, definition), acc|
+    @paths ||= @raw[:paths].each.with_object({}) do |(path, definition), acc|
       acc[path] = Async::OpenAPI::Versions::V20::Path.new(path, definition)
     end
   end
 
   def definitions
-    @paths = @raw[:definitions].each.with_object({}) do |(path, definition), acc|
+    @definitions ||= @raw[:definitions].each.with_object({}) do |(path, definition), acc|
       acc[path] = Async::OpenAPI::Versions::V20::Model.new(path, definition)
     end
   end
