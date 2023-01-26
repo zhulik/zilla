@@ -2,23 +2,33 @@
 
 class Async::OpenAPI::Versions::V20::Definition
   include Memery
-  attr_reader :raw, :paths, :definitions
+  attr_reader :raw
 
   def initialize(json)
     @raw = json
-    @definitions = wrap_values(@raw.fetch("definitions", {}), Async::OpenAPI::Versions::V20::Model)
-    @paths = wrap_values(@raw.fetch("paths", {}), Async::OpenAPI::Versions::V20::Path)
+  end
+
+  [:host, :schemes].each do |name|
+    define_method(name) do
+      @raw[name.to_s]
+    end
   end
 
   memoize def info = OpenStruct.new(raw["info"]) # rubocop:disable Style/OpenStructUse
 
-  private
-
-  def wrap_values(hash, klass)
-    hash.each_with_object({}) do |(k, v), acc|
-      acc[k] = klass.new(k, v)
+  memoize def definitions
+    @raw.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
+      acc[k] = Async::OpenAPI::Versions::V20::Model.new(k, v, definitions: acc)
     end
   end
+
+  memoize def paths
+    @raw.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
+      acc[k] = Async::OpenAPI::Versions::V20::Path.new(k, v, definitions:)
+    end
+  end
+
+  memoize def endpoints = paths.values.flat_map { _1.endpoints.values }
 
   # TODO: :security, :securityDefinitions
 end

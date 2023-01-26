@@ -20,7 +20,7 @@ RSpec.describe Async::OpenAPI::Versions::V20::Definition do
 
     it "returns a hash of paths" do # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_a(Hash)
-      expect(subject.keys).not_to be_empty
+      expect(subject).not_to be_empty
       expect(subject.keys).to all(be_a(String))
       expect(subject.values).to all(be_a(Async::OpenAPI::Versions::V20::Path))
     end
@@ -29,11 +29,21 @@ RSpec.describe Async::OpenAPI::Versions::V20::Definition do
   describe "#definitions" do
     subject { definition.definitions }
 
-    it "returns a hash of definitions" do  # rubocop:disable RSpec/MultipleExpectations
+    it "returns a hash of definitions" do # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_a(Hash)
-      expect(subject.keys).not_to be_empty
+      expect(subject).not_to be_empty
       expect(subject.keys).to all(be_a(String))
       expect(subject.values).to all(be_a(Async::OpenAPI::Versions::V20::Model))
+    end
+  end
+
+  describe "#endpoints" do
+    subject { definition.endpoints }
+
+    it "returns a list of endpoints" do  # rubocop:disable RSpec/MultipleExpectations
+      expect(subject).to be_a(Array)
+      expect(subject).not_to be_empty
+      expect(subject).to all(be_a(Async::OpenAPI::Versions::V20::Endpoint))
     end
   end
 end
