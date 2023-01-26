@@ -9,11 +9,7 @@ class Async::OpenAPI::Versions::V20::Definition
     @definitions = wrap_values(@raw.fetch(:definitions, {}), Async::OpenAPI::Versions::V20::Model)
   end
 
-  [:title, :version].each do |name|
-    define_method "info_#{name}" do
-      @raw.dig(:info, name)
-    end
-  end
+  def info = @info ||= OpenStruct.new(raw[:info]) # rubocop:disable Style/OpenStructUse
 
   private
 

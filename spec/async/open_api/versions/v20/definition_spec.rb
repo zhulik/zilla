@@ -5,15 +5,13 @@ RSpec.describe Async::OpenAPI::Versions::V20::Definition do
 
   let(:json) { fixture_json("open_api/v20/swagger.json") }
 
-  describe "#info_title" do
-    it "returns title" do
-      expect(definition.info_title).to eq("Swagger Petstore")
-    end
-  end
+  describe "#info" do
+    subject { definition.info }
 
-  describe "#info_version" do
-    it "returns version" do
-      expect(definition.info_version).to eq("1.0.6")
+    it "returns an info OpenStruct" do # rubocop:disable RSpec/MultipleExpectations
+      expect(subject).to be_an(OpenStruct) # rubocop:disable Style/OpenStructUse
+      expect(subject.title).to eq("Swagger Petstore")
+      expect(subject.version).to eq("1.0.6")
     end
   end
 
