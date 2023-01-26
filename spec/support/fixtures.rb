@@ -4,7 +4,7 @@ module Support
   module Fixtures
     def fixture_path(name) = "#{RSPEC_ROOT}/fixtures/#{name}"
 
-    def fixture_json(name) = Oj.load(File.read(fixture_path(name)), symbolize_names: true)
+    def fixture_json(name) = Oj.load(File.read(fixture_path(name)))
   end
 
   ::RSpec.shared_context Fixtures do

@@ -5,11 +5,11 @@ class Async::OpenAPI::Versions::V20::Definition
 
   def initialize(json)
     @raw = json
-    @paths = wrap_values(@raw.fetch(:paths, {}), Async::OpenAPI::Versions::V20::Path)
-    @definitions = wrap_values(@raw.fetch(:definitions, {}), Async::OpenAPI::Versions::V20::Model)
+    @definitions = wrap_values(@raw.fetch("definitions", {}), Async::OpenAPI::Versions::V20::Model)
+    @paths = wrap_values(@raw.fetch("paths", {}), Async::OpenAPI::Versions::V20::Path)
   end
 
-  def info = @info ||= OpenStruct.new(raw[:info]) # rubocop:disable Style/OpenStructUse
+  def info = @info ||= OpenStruct.new(raw["info"]) # rubocop:disable Style/OpenStructUse
 
   private
 

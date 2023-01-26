@@ -11,7 +11,7 @@ module Async::OpenAPI::ClientFactory
     def build(input)
       definition = Async::OpenAPI::LoaderFactory.build(input).load
 
-      version = definition[:swagger]
+      version = definition["swagger"]
 
       raise ArgumentError, "#{input.inspect} is not an OpenAPI definition" if version.nil?
       raise UnsupportedVersion, "usupported version #{version.inspect}" if version && CLIENTS[version].nil?

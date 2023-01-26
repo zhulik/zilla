@@ -5,7 +5,7 @@ RSpec.describe Async::OpenAPI::ClientFactory do
     subject { described_class.build(input) }
 
     context "when input is a OpenAPI 2.0 definition" do
-      let(:input) { { swagger: "2.0" } }
+      let(:input) { { "swagger" => "2.0" } }
 
       it "returns an instance of Async::OpenAPI::Versions::V20::Client" do
         expect(subject).to be_an_instance_of(Async::OpenAPI::Versions::V20::Client)
@@ -13,7 +13,7 @@ RSpec.describe Async::OpenAPI::ClientFactory do
     end
 
     context "when input is a OpenAPI 3.0 definition" do
-      let(:input) { { swagger: "3.0" } }
+      let(:input) { { "swagger" => "3.0" } }
 
       include_examples "raises", described_class::UnsupportedVersion, "usupported version \"3.0\""
     end

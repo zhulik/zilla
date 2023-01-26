@@ -10,7 +10,7 @@ class Async::OpenAPI::Loaders::Loader
   end
 
   def load
-    Oj.load(load_string, symbolize_names: true)
+    Oj.load(load_string)
   rescue StandardError => e
     raise LoaderError, e.message
   end
