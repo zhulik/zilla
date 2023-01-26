@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require "simplecov"
+
+SimpleCov.start
+
 require "async/open_api"
 
 require "syntax_suggest"
