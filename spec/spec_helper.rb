@@ -25,6 +25,6 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.include_context(Async::RSpec::Reactor)
+  config.include_context(Async::RSpec::Reactor, async: true)
   config.include_context(Support::Fixtures)
 end
