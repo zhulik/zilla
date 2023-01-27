@@ -20,6 +20,10 @@ class Async::OpenAPI::Versions::V20::Endpoint
   end
 
   memoize def parameters
-    @raw["parameters"].group_by { _1["name"] }.transform_values { _1 }
+    params = @raw["parameters"].group_by { _1["name"] }.transform_values(&:first)
+    params.transform_values do |schema|
+      JSONSchemer.schema(schema.merge("definitions" => @definitions),
+                         insert_property_defaults: true)
+    end
   end
 end

@@ -10,7 +10,8 @@ class Async::OpenAPI::Versions::V20::Executor
 
   def call(endpoint, *args, path_params: {}, params: {})
     params.merge({})
-    validate_path_params!(endpoint, args, path_params)
+    path_parameters = endpoint.path_template.path_parameters(*args, **path_params)
+    validate_path_params!(endpoint, path_parameters)
 
     path = endpoint.path_template.render(*args, **path_params)
     connection.public_send(endpoint.method, path)
@@ -25,9 +26,11 @@ class Async::OpenAPI::Versions::V20::Executor
     end
   end
 
-  def validate_path_params!(endpoint, _args, path_params)
-    path_params.each do |k, _v|
-      pp(endpoint.parameters[k])
+  def validate_path_params!(endpoint, path_params)
+    path_params.each do |k, v|
+      errors = endpoint.parameters[k].validate(v)
+
+      raise ArgumentError, errors.to_a.to_s if errors.any?
     end
   end
 end
