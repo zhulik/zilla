@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Versions::V20::Client
+  include Async::OpenAPI::Versions::V20
+
   include Memery
 
   attr_reader :raw
@@ -9,7 +11,7 @@ class Async::OpenAPI::Versions::V20::Client
     @raw = json
 
     scheme = scheme.to_s
-    @api = Async::OpenAPI::Versions::V20::API.new(json)
+    @api = API.new(json)
 
     unless @api.schemes.include?(scheme)
       raise ArgumentError, "unsupported scheme #{scheme.inspect}. Supported: #{@api.schemes}"
@@ -23,7 +25,7 @@ class Async::OpenAPI::Versions::V20::Client
 
   private
 
-  memoize def executor = Async::OpenAPI::Versions::V20::Executor.new(@scheme, @host)
+  memoize def executor = Executor.new(@scheme, @host)
 
   def define_operations!
     @api.endpoints.each do |endpoint|

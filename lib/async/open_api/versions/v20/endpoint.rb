@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Versions::V20::Endpoint
+  include Async::OpenAPI::Versions::V20
+
   include Memery
 
   attr_reader :path, :path_template, :method, :raw, :definitions
 
   def initialize(path, method, json, definitions: {})
     @path = path
-    @path_template = Async::OpenAPI::Versions::V20::PathTemplate.new(path)
+    @path_template = PathTemplate.new(path)
     @method = method
     @raw = json
     @definitions = definitions
@@ -22,7 +24,7 @@ class Async::OpenAPI::Versions::V20::Endpoint
   memoize def parameters
     params = @raw["parameters"].group_by { _1["name"] }
     params.transform_values do |schema|
-      Async::OpenAPI::Versions::V20::Parameter.new(schema.first, definitions:)
+      Parameter.new(schema.first, definitions:)
     end
   end
 end

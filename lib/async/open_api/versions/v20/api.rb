@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Versions::V20::API
+  include Async::OpenAPI::Versions::V20
+
   include Memery
 
   attr_reader :raw
@@ -19,13 +21,13 @@ class Async::OpenAPI::Versions::V20::API
 
   memoize def definitions
     @raw.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
-      acc[k] = Async::OpenAPI::Versions::V20::Definition.new(k, v, definitions: acc)
+      acc[k] = Definition.new(k, v, definitions: acc)
     end
   end
 
   memoize def paths
     @raw.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
-      acc[k] = Async::OpenAPI::Versions::V20::Path.new(k, v, definitions:)
+      acc[k] = Path.new(k, v, definitions:)
     end
   end
 
