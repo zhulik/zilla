@@ -17,7 +17,5 @@ class Async::OpenAPI::Loaders::Loader
 
   private
 
-  def load_string
-    raise NotImplementedError
-  end
+  def load_string = raise NotImplementedError
 end

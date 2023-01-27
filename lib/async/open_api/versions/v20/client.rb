@@ -20,9 +20,7 @@ class Async::OpenAPI::Versions::V20::Client
 
   private
 
-  memoize def executor
-    Async::OpenAPI::Versions::V20::Executor.new(@scheme, @host)
-  end
+  memoize def executor = Async::OpenAPI::Versions::V20::Executor.new(@scheme, @host)
 
   def define_operations!
     @definition.endpoints.each do |endpoint|
