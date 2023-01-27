@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Async::OpenAPI::Versions::V20::API do
-  let(:definition) { described_class.new(json) }
+  let(:api) { described_class.new(json) }
 
   let(:json) { fixture_json("open_api/v20/swagger.json") }
 
   describe "#info" do
-    subject { definition.info }
+    subject { api.info }
 
     it "returns an info OpenStruct" do # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_an(OpenStruct) # rubocop:disable Style/OpenStructUse
@@ -16,7 +16,7 @@ RSpec.describe Async::OpenAPI::Versions::V20::API do
   end
 
   describe "#paths" do
-    subject { definition.paths }
+    subject { api.paths }
 
     it "returns a hash of paths" do # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_a(Hash)
@@ -27,7 +27,7 @@ RSpec.describe Async::OpenAPI::Versions::V20::API do
   end
 
   describe "#definitions" do
-    subject { definition.definitions }
+    subject { api.definitions }
 
     it "returns a hash of definitions" do # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_a(Hash)
@@ -38,7 +38,7 @@ RSpec.describe Async::OpenAPI::Versions::V20::API do
   end
 
   describe "#endpoints" do
-    subject { definition.endpoints }
+    subject { api.endpoints }
 
     it "returns a list of endpoints" do  # rubocop:disable RSpec/MultipleExpectations
       expect(subject).to be_a(Array)

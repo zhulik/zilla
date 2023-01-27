@@ -2,6 +2,7 @@
 
 class Async::OpenAPI::Versions::V20::API
   include Memery
+
   attr_reader :raw
 
   def initialize(json)

@@ -2,11 +2,14 @@
 
 class Async::OpenAPI::Versions::V20::Client
   include Memery
-  attr_reader :definition
 
-  def initialize(definition, host: nil, scheme: :https)
+  attr_reader :raw
+
+  def initialize(json, host: nil, scheme: :https)
+    @raw = json
+
     scheme = scheme.to_s
-    @api = Async::OpenAPI::Versions::V20::API.new(definition)
+    @api = Async::OpenAPI::Versions::V20::API.new(json)
 
     unless @api.schemes.include?(scheme)
       raise ArgumentError, "unsupported scheme #{scheme.inspect}. Supported: #{@api.schemes}"
