@@ -1,45 +1,39 @@
 # frozen_string_literal: true
 
 RSpec.describe Async::OpenAPI::LoaderFactory do
-  shared_examples "returns loader" do |klass|
-    it "returns #{klass.name}" do
-      expect(subject).to be_an_instance_of(klass)
-    end
-  end
-
   describe ".build" do
     subject { described_class.build(arg) }
 
     context "when input is a local file path" do
       let(:arg) { __FILE__ }
 
-      include_examples "returns loader", Async::OpenAPI::Loaders::File
+      include_examples "returns an instance of", Async::OpenAPI::Loaders::File
     end
 
     context "when input is a url" do
       context "when http" do
         let(:arg) { "http://example.com/swagger.json" }
 
-        include_examples "returns loader", Async::OpenAPI::Loaders::HTTP
+        include_examples "returns an instance of", Async::OpenAPI::Loaders::HTTP
       end
 
       context "when https" do
         let(:arg) { "https://example.com/swagger.json" }
 
-        include_examples "returns loader", Async::OpenAPI::Loaders::HTTP
+        include_examples "returns an instance of", Async::OpenAPI::Loaders::HTTP
       end
     end
 
     context "when input is a hash" do
       let(:arg) { {} }
 
-      include_examples "returns loader", Async::OpenAPI::Loaders::Hash
+      include_examples "returns an instance of", Async::OpenAPI::Loaders::Hash
     end
 
     context "when input is json string" do
       let(:arg) { "{}" }
 
-      include_examples "returns loader", Async::OpenAPI::Loaders::String
+      include_examples "returns an instance of", Async::OpenAPI::Loaders::String
     end
 
     context "when input is unknown string" do

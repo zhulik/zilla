@@ -5,7 +5,7 @@ class Async::OpenAPI::Versions::V20::Endpoint
 
   attr_reader :path, :path_template, :method, :raw, :definitions
 
-  def initialize(path, method, json, definitions:)
+  def initialize(path, method, json, definitions: {})
     @path = path
     @path_template = Async::OpenAPI::Versions::V20::PathTemplate.new(path)
     @method = method
@@ -20,10 +20,9 @@ class Async::OpenAPI::Versions::V20::Endpoint
   end
 
   memoize def parameters
-    params = @raw["parameters"].group_by { _1["name"] }.transform_values(&:first)
+    params = @raw["parameters"].group_by { _1["name"] }
     params.transform_values do |schema|
-      JSONSchemer.schema(schema.merge("definitions" => @definitions),
-                         insert_property_defaults: true)
+      Async::OpenAPI::Versions::V20::Parameter.new(schema.first, definitions:)
     end
   end
 end

@@ -4,7 +4,9 @@ RSpec.describe Async::OpenAPI::Versions::V20::Client do
   let(:client) { described_class.new(fixture_json("open_api/v20/swagger.json")) }
 
   it "goes brrrr" do
-    expect(nil).to be_nil
-    client.getUserByName("name")
+    stub_request(:get, "https://petstore.swagger.io/user/name")
+      .to_return(status: 200)
+
+    expect(client.getUserByName("name")).not_to be_nil
   end
 end

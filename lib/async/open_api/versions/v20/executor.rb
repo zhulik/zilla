@@ -28,9 +28,7 @@ class Async::OpenAPI::Versions::V20::Executor
 
   def validate_path_params!(endpoint, path_params)
     path_params.each do |k, v|
-      errors = endpoint.parameters[k].validate(v)
-
-      raise ArgumentError, errors.to_a.to_s if errors.any?
+      endpoint.parameters[k].validate!(v)
     end
   end
 end

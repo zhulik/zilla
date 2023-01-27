@@ -13,3 +13,9 @@ end
 RSpec.shared_examples "returns false" do
   include_examples "returns", false
 end
+
+RSpec.shared_examples "returns an instance of" do |klass|
+  it "returns an instance of #{klass}" do
+    expect(subject).to be_an_instance_of(klass)
+  end
+end

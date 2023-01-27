@@ -9,9 +9,7 @@ RSpec.describe Async::OpenAPI::Loaders::String do
     context "when string contains json" do
       let(:string) { "{}" }
 
-      it "returns hash" do
-        expect(subject).to be_an_instance_of(Hash)
-      end
+      include_examples "returns an instance of", Hash
     end
 
     context "when string contains not json" do

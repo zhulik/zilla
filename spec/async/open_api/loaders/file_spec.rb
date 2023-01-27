@@ -9,9 +9,7 @@ RSpec.describe Async::OpenAPI::Loaders::File do
     context "when file contains json" do
       let(:path) { fixture_path("open_api/v20/swagger.json") }
 
-      it "returns hash" do
-        expect(subject).to be_an_instance_of(Hash)
-      end
+      include_examples "returns an instance of", Hash
     end
 
     context "when file contains not json" do

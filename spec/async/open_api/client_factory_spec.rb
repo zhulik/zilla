@@ -7,9 +7,7 @@ RSpec.describe Async::OpenAPI::ClientFactory do
     context "when input is a OpenAPI 2.0 definition" do
       let(:input) { { "swagger" => "2.0", "host" => "example.com", "schemes" => ["https"] } }
 
-      it "returns an instance of Async::OpenAPI::Versions::V20::Client" do
-        expect(subject).to be_an_instance_of(Async::OpenAPI::Versions::V20::Client)
-      end
+      include_examples "returns an instance of", Async::OpenAPI::Versions::V20::Client
     end
 
     context "when input is a OpenAPI 3.0 definition" do
