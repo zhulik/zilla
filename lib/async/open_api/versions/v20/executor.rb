@@ -8,8 +8,11 @@ class Async::OpenAPI::Versions::V20::Executor
     @host = host
   end
 
-  def call(endpoint, *_args, **params)
-    path = build_path(endpoint.path, **params)
+  def call(endpoint, *args, path_params: {}, params: {})
+    params.merge({})
+    validate_path_params!(endpoint, args, path_params)
+
+    path = endpoint.path_template.render(*args, **path_params)
     connection.public_send(endpoint.method, path)
   end
 
@@ -22,8 +25,9 @@ class Async::OpenAPI::Versions::V20::Executor
     end
   end
 
-  def build_path(template, **_params)
-    # TODO: parse path parameters
-    template
+  def validate_path_params!(endpoint, _args, path_params)
+    path_params.each do |k, _v|
+      pp(endpoint.parameters[k])
+    end
   end
 end

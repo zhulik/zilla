@@ -5,6 +5,6 @@ RSpec.describe Async::OpenAPI::Versions::V20::Client do
 
   it "goes brrrr" do
     expect(nil).to be_nil
-    client.addPet
+    client.getUserByName("name")
   end
 end
