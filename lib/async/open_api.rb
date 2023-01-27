@@ -12,7 +12,8 @@ loader = Zeitwerk::Loader.new
 
 loader.inflector.inflect(
   "open_api" => "OpenAPI",
-  "http" => "HTTP"
+  "http" => "HTTP",
+  "api" => "API"
 )
 
 # Your code goes here...
