@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Async::OpenAPI::Versions::V20::Model
+class Async::OpenAPI::Versions::V20::Definition
   include Memery
 
   attr_reader :name, :raw

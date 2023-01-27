@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Async::OpenAPI::Versions::V20::Model do
+RSpec.describe Async::OpenAPI::Versions::V20::Definition do
   let(:model) { described_class.new("Model", schema, definitions:) }
   let(:definitions) { {} }
 
