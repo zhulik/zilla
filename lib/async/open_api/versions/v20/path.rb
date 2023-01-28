@@ -14,8 +14,8 @@ class Async::OpenAPI::Versions::V20::Path
   end
 
   memoize def endpoints
-    @json.each_with_object({}) do |(k, v), acc|
-      acc[k] = Endpoint.new(@path, k, v, definitions:)
+    json.each_with_object({}) do |(k, v), acc|
+      acc[k] = Endpoint.new(path, k, v, definitions:)
     end
   end
 end

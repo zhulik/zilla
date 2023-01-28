@@ -5,26 +5,23 @@ class Async::OpenAPI::Versions::V20::Client
 
   include Memery
 
-  attr_reader :json
+  attr_reader :json, :host, :scheme
 
   def initialize(json, host: nil, scheme: :https)
     @json = json
-
-    scheme = scheme.to_s
-
-    unless api.schemes.include?(scheme)
-      raise ArgumentError, "unsupported scheme #{scheme.inspect}. Supported: #{api.schemes}"
-    end
-
     @host = host || api.host || raise(ArgumentError, ":host must be specified")
-    @scheme = scheme
+    @scheme = scheme.to_s
+
+    unless api.schemes.include?(@scheme)
+      raise ArgumentError, "unsupported scheme #{@scheme.inspect}. Supported: #{api.schemes}"
+    end
 
     define_operations!
   end
 
-  memoize def api = API.new(@json)
+  memoize def api = API.new(json)
 
-  memoize def executor = Executor.new(@scheme, @host)
+  memoize def executor = Executor.new(scheme, host)
 
   private
 

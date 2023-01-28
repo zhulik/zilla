@@ -3,6 +3,8 @@
 class Async::OpenAPI::Versions::V20::Executor
   include Memery
 
+  attr_reader :scheme, :host
+
   def initialize(scheme, host)
     @scheme = scheme
     @host = host
@@ -20,7 +22,7 @@ class Async::OpenAPI::Versions::V20::Executor
   private
 
   memoize def connection
-    Faraday.new("#{@scheme}://#{@host}") do |f|
+    Faraday.new("#{scheme}://#{host}") do |f|
       f.adapter :async_http
       f.response :raise_error
     end

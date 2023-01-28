@@ -3,7 +3,7 @@
 class Async::OpenAPI::Versions::V20::Definition
   include Memery
 
-  attr_reader :name, :json
+  attr_reader :name, :json, :definitions
 
   def initialize(name, json, definitions: {})
     @name = name
@@ -13,5 +13,5 @@ class Async::OpenAPI::Versions::V20::Definition
 
   def valid?(*, **) = schema.valid?(*, **)
 
-  memoize def schema = JSONSchemer.schema(@json.merge("definitions" => @definitions), insert_property_defaults: true)
+  memoize def schema = JSONSchemer.schema(json.merge("definitions" => definitions), insert_property_defaults: true)
 end

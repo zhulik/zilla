@@ -13,20 +13,20 @@ class Async::OpenAPI::Versions::V20::API
 
   [:host, :schemes].each do |name|
     define_method(name) do
-      @json[name.to_s]
+      json[name.to_s]
     end
   end
 
   memoize def info = OpenStruct.new(json["info"]) # rubocop:disable Style/OpenStructUse
 
   memoize def definitions
-    @json.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
+    json.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
       acc[k] = Definition.new(k, v, definitions: acc)
     end
   end
 
   memoize def paths
-    @json.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
+    json.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
       acc[k] = Path.new(k, v, definitions:)
     end
   end

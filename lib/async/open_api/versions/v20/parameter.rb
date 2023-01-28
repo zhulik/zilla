@@ -3,7 +3,7 @@
 class Async::OpenAPI::Versions::V20::Parameter
   include Memery
 
-  attr_reader :json
+  attr_reader :json, :definitions
 
   def initialize(json, definitions: {})
     @json = json
@@ -12,7 +12,7 @@ class Async::OpenAPI::Versions::V20::Parameter
 
   [:name, :in, :description, :required, :type].each do |name|
     define_method(name) do
-      @json[name.to_s]
+      json[name.to_s]
     end
   end
 
@@ -22,5 +22,5 @@ class Async::OpenAPI::Versions::V20::Parameter
     raise ArgumentError, errors.to_a.to_s if errors.any?
   end
 
-  memoize def schema = JSONSchemer.schema(@json.merge("definitions" => @definitions), insert_property_defaults: true)
+  memoize def schema = JSONSchemer.schema(json.merge("definitions" => definitions), insert_property_defaults: true)
 end
