@@ -19,6 +19,8 @@ class Async::OpenAPI::Versions::V20::PathTemplate
   def render(*args, **params) = render_params(path_parameters(*args, **params))
 
   def path_parameters(*args, **params) # rubocop:disable Metrics/AbcSize
+    params = params.slice(*parameters)
+
     raise ArgumentError, "path parameters must only be passed as args OR params" if args.any? && params.any?
 
     count = args.count + params.count
