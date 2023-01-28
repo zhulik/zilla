@@ -5,28 +5,28 @@ class Async::OpenAPI::Versions::V20::API
 
   include Memery
 
-  attr_reader :raw
+  attr_reader :json
 
   def initialize(json)
-    @raw = json
+    @json = json
   end
 
   [:host, :schemes].each do |name|
     define_method(name) do
-      @raw[name.to_s]
+      @json[name.to_s]
     end
   end
 
-  memoize def info = OpenStruct.new(raw["info"]) # rubocop:disable Style/OpenStructUse
+  memoize def info = OpenStruct.new(json["info"]) # rubocop:disable Style/OpenStructUse
 
   memoize def definitions
-    @raw.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
+    @json.fetch("definitions", {}).each_with_object({}) do |(k, v), acc|
       acc[k] = Definition.new(k, v, definitions: acc)
     end
   end
 
   memoize def paths
-    @raw.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
+    @json.fetch("paths", {}).each_with_object({}) do |(k, v), acc|
       acc[k] = Path.new(k, v, definitions:)
     end
   end

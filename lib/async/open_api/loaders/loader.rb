@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Async::OpenAPI::Loaders::Loader
-  attr_reader :raw
-
   class LoaderError < Async::OpenAPI::Error; end
 
-  def initialize(raw)
-    @raw = raw
+  attr_reader :input
+
+  def initialize(input)
+    @input = input
   end
 
   def load

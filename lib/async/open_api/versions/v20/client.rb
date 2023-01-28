@@ -5,10 +5,10 @@ class Async::OpenAPI::Versions::V20::Client
 
   include Memery
 
-  attr_reader :raw
+  attr_reader :json
 
   def initialize(json, host: nil, scheme: :https)
-    @raw = json
+    @json = json
 
     scheme = scheme.to_s
 
@@ -22,7 +22,7 @@ class Async::OpenAPI::Versions::V20::Client
     define_operations!
   end
 
-  memoize def api = API.new(@raw)
+  memoize def api = API.new(@json)
 
   memoize def executor = Executor.new(@scheme, @host)
 
