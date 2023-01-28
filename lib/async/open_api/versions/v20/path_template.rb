@@ -37,17 +37,13 @@ class Async::OpenAPI::Versions::V20::PathTemplate
 
   def validate!(params)
     params.each_key do |k|
-      k = k.to_s
-      raise ArgumentError, "unknown path parameter: #{k.inspect}, known: #{parameters}" unless @parameters.key?(k)
+      raise ArgumentError, "unknown path parameter: #{k.inspect}, known: #{parameters}" unless @parameters.key?(k.to_s)
     end
   end
 
   def render_params(params)
     params.reduce(@template) do |acc, (k, v)|
-      k = k.to_s
-      raise ArgumentError, "unknown path parameter: #{k.inspect}, known: #{parameters}" unless @parameters.key?(k)
-
-      acc.sub(@parameters[k], v.to_s)
+      acc.sub(@parameters[k.to_s], v.to_s)
     end
   end
 end
