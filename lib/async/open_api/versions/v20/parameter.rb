@@ -22,8 +22,5 @@ class Async::OpenAPI::Versions::V20::Parameter
     raise ArgumentError, errors.to_a.to_s if errors.any?
   end
 
-  memoize def schema
-    JSONSchemer.schema(@raw.merge("definitions" => @definitions),
-                       insert_property_defaults: true)
-  end
+  memoize def schema = JSONSchemer.schema(@raw.merge("definitions" => @definitions), insert_property_defaults: true)
 end
