@@ -24,7 +24,11 @@ class Zilla::Versions::V20::Parameters
   memoize def parameters
     json.map { Parameter.new(_1, definitions:) }
         .group_by(&:name)
-        .transform_values(&:first)
+        .transform_values do |params|
+          raise(ArgumentError, "parameter names must be unique: #{params}") if params.count > 1
+
+          params.first
+        end
   end
 
   LOCATIONS.each do |name, key|

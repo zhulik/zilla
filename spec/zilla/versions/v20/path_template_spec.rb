@@ -9,11 +9,7 @@ RSpec.describe Zilla::Versions::V20::PathTemplate do
     describe "#parameters" do
       subject { template.parameters }
 
-      include_examples "returns an instance of", Array
-
-      it "returns an empty array" do
-        expect(subject).to be_empty
-      end
+      include_examples "returns an empty", Array
     end
 
     describe "#render" do
@@ -36,11 +32,7 @@ RSpec.describe Zilla::Versions::V20::PathTemplate do
         let(:args) { [] }
         let(:params) { {} }
 
-        include_examples "returns an instance of", Hash
-
-        it "returns an ampty hash" do
-          expect(subject).to be_empty
-        end
+        include_examples "returns an empty", Hash
       end
 
       context "when only args passed" do
