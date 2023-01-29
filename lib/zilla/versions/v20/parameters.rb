@@ -65,7 +65,7 @@ class Zilla::Versions::V20::Parameters
           "there must be exactly #{path_parameters.count} path parameters in params. Given: #{params.count}"
   end
 
-  def normalize_query_params!(_args, _params) = {}
+  def normalize_query_params!(_args, params) = params.transform_keys(&:to_s).slice(*query_parameters.keys)
   def normalize_body_params!(_args, _params) = {}
   def normalize_form_data_params!(_args, _params) = {}
   def normalize_header_params!(_args, _params) = {}

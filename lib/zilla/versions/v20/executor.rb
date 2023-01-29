@@ -11,12 +11,10 @@ class Zilla::Versions::V20::Executor
   end
 
   def call(endpoint, *args, **params)
-    endpoint.parameters.normalize!(*args, **params)
-    path_parameters = endpoint.path_template.path_parameters(*args, **params)
-    validate_path_params!(endpoint, path_parameters)
+    normalized = endpoint.parameters.normalize!(*args, **params)
 
-    path = endpoint.path_template.render(*args, **path_parameters)
-    response = connection.public_send(endpoint.method, path)
+    path = endpoint.path_template.render(*args, **normalized[:path])
+    response = connection.public_send(endpoint.method, path, **normalized[:query])
 
     validate_response!(endpoint, response)
   end
