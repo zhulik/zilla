@@ -22,10 +22,5 @@ class Async::OpenAPI::Versions::V20::Endpoint
 
   memoize def path_template = PathTemplate.new(path)
 
-  memoize def parameters
-    params = json["parameters"].group_by { _1["name"] }
-    params.transform_values do |schema|
-      Parameter.new(schema.first, definitions:)
-    end
-  end
+  memoize def parameters = Parameters.new(json["parameters"], definitions:)
 end

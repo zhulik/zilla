@@ -7,11 +7,10 @@ RSpec.describe Async::OpenAPI::Versions::V20::Endpoint do
   describe "#parameters" do
     subject { endpoint.parameters }
 
-    it "returns a hash of paths" do # rubocop:disable RSpec/MultipleExpectations
-      expect(subject).to be_a(Hash)
-      expect(subject).not_to be_empty
-      expect(subject.keys).to all(be_a(String))
-      expect(subject.values).to all(be_a(Async::OpenAPI::Versions::V20::Parameter))
+    include_examples "returns an instance of", Async::OpenAPI::Versions::V20::Parameters
+
+    it "returns parameters" do
+      expect(subject.names).to eq(["username"])
     end
   end
 end
