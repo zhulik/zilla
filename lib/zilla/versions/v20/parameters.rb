@@ -3,6 +3,9 @@
 class Zilla::Versions::V20::Parameters
   include Zilla::Versions::V20
 
+  include Memery
+  include Enumerable
+
   LOCATIONS = {
     path: "path",
     query: "query",
@@ -10,8 +13,6 @@ class Zilla::Versions::V20::Parameters
     header: "header",
     form_data: "formData"
   }.freeze
-
-  include Memery
 
   attr_reader :json, :definitions
 
@@ -32,7 +33,7 @@ class Zilla::Versions::V20::Parameters
     end)
   end
 
-  def empty? = parameters.empty?
   def names = parameters.keys
   def [](name) = parameters[name]
+  def each(*, **, &) = parameters.each(*, **, &)
 end
