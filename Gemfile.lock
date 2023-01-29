@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    async-openapi (0.1.0)
+    zilla (0.1.0)
       async (~> 2.3.0)
       async-http-faraday (~> 0.11)
       faraday (~> 2.7.0)
@@ -177,7 +177,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  async-openapi!
   async-rspec
   overcommit
   rake (~> 13.0)
@@ -188,6 +187,7 @@ DEPENDENCIES
   simplecov
   solargraph
   webmock
+  zilla!
 
 BUNDLED WITH
    2.4.1

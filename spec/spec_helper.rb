@@ -4,7 +4,7 @@ require "simplecov"
 
 SimpleCov.start
 
-require "async/open_api"
+require "zilla"
 
 require "syntax_suggest"
 require "webmock/rspec"

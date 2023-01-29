@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "async/open_api"
+require "zilla"
 
 require "irb"
 require "irb/completion"
