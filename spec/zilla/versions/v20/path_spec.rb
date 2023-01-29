@@ -7,11 +7,6 @@ RSpec.describe Zilla::Versions::V20::Path do
   describe "#endpoints" do
     subject { path.endpoints }
 
-    it "returns a hash of endpoints" do # rubocop:disable RSpec/MultipleExpectations
-      expect(subject).to be_a(Hash)
-      expect(subject).not_to be_empty
-      expect(subject.keys).to all(be_a(String))
-      expect(subject.values).to all(be_a(Zilla::Versions::V20::Endpoint))
-    end
+    include_examples "returns a hash of", value: Zilla::Versions::V20::Endpoint, size: 2
   end
 end

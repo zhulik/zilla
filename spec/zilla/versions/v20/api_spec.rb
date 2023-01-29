@@ -18,23 +18,13 @@ RSpec.describe Zilla::Versions::V20::API do
   describe "#paths" do
     subject { api.paths }
 
-    it "returns a hash of paths" do # rubocop:disable RSpec/MultipleExpectations
-      expect(subject).to be_a(Hash)
-      expect(subject).not_to be_empty
-      expect(subject.keys).to all(be_a(String))
-      expect(subject.values).to all(be_a(Zilla::Versions::V20::Path))
-    end
+    include_examples "returns a hash of", value: Zilla::Versions::V20::Path, size: 14
   end
 
   describe "#definitions" do
     subject { api.definitions }
 
-    it "returns a hash of definitions" do # rubocop:disable RSpec/MultipleExpectations
-      expect(subject).to be_a(Hash)
-      expect(subject).not_to be_empty
-      expect(subject.keys).to all(be_a(String))
-      expect(subject.values).to all(be_a(Zilla::Versions::V20::Definition))
-    end
+    include_examples "returns a hash of", value: Zilla::Versions::V20::Definition, size: 6
   end
 
   describe "#endpoints" do

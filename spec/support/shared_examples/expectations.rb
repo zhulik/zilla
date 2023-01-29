@@ -19,3 +19,15 @@ RSpec.shared_examples "returns an instance of" do |klass|
     expect(subject).to be_an_instance_of(klass)
   end
 end
+
+RSpec.shared_examples "returns a hash of" do |value:, key: String, size: nil|
+  it "returns a hash of #{key}: #{value}" do # rubocop:disable RSpec/MultipleExpectations
+    expect(subject).to be_an_instance_of(Hash)
+    expect(subject).not_to be_empty
+
+    expect(subject.size).to(eq(size)) if size
+
+    expect(subject.keys).to all(be_an_instance_of(key))
+    expect(subject.values).to all(be_an_instance_of(value))
+  end
+end

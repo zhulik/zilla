@@ -18,9 +18,7 @@ RSpec.describe Zilla::Loaders::HTTP do
       context "when server responds with JSON" do
         let(:body) { "{}" }
 
-        it "returns hash" do
-          expect(subject).to be_a(Hash)
-        end
+        include_examples "returns an instance of", Hash
       end
 
       context "when server responds with non-JSON" do

@@ -9,12 +9,7 @@ RSpec.describe Zilla::Versions::V20::Parameters do
     describe "#parameters!" do
       subject { parameter.parameters }
 
-      it "returns a hash of paths" do # rubocop:disable RSpec/MultipleExpectations
-        expect(subject).to be_a(Hash)
-        expect(subject).not_to be_empty
-        expect(subject.keys).to all(be_a(String))
-        expect(subject.values).to all(be_a(Zilla::Versions::V20::Parameter))
-      end
+      include_examples "returns a hash of", value: Zilla::Versions::V20::Parameter, size: 1
     end
   end
 end
