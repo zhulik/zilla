@@ -44,4 +44,4 @@ Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6

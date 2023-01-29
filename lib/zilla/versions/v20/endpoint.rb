@@ -8,6 +8,8 @@ class Zilla::Versions::V20::Endpoint
   attr_reader :path, :method, :json, :definitions
 
   def initialize(path, method, json, definitions: {})
+    raise ArgumentError, "json must be a Hash, given: #{json.class.inspect}" unless json.instance_of?(Hash)
+
     @path = path
     @method = method
     @json = json

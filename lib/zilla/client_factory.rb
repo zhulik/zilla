@@ -8,7 +8,7 @@ module Zilla::ClientFactory
   }.freeze
 
   class << self
-    def build(input)
+    def build(input, host: nil, scheme: nil)
       definition = Zilla::LoaderFactory.build(input).load
 
       version = definition["swagger"]
@@ -16,7 +16,7 @@ module Zilla::ClientFactory
       raise ArgumentError, "#{input.inspect} is not an OpenAPI definition" if version.nil?
       raise UnsupportedVersion, "usupported version #{version.inspect}" if version && CLIENTS[version].nil?
 
-      CLIENTS[version].new(definition)
+      CLIENTS[version].new(definition, host:, scheme:)
     end
   end
 end

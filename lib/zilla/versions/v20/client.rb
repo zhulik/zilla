@@ -7,12 +7,12 @@ class Zilla::Versions::V20::Client
 
   attr_reader :json, :host, :scheme
 
-  def initialize(json, host: nil, scheme: :https)
+  def initialize(json, host: nil, scheme: nil)
     @json = json
     @host = host || api.host || raise(ArgumentError, ":host must be specified")
-    @scheme = scheme.to_s
+    @scheme = (scheme || :https).to_s
 
-    unless api.schemes.include?(@scheme)
+    if api.schemes && !api.schemes.include?(@scheme)
       raise ArgumentError, "unsupported scheme #{@scheme.inspect}. Supported: #{api.schemes}"
     end
 

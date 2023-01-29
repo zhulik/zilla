@@ -5,6 +5,8 @@ class Zilla::Versions::V20::Path
 
   include Memery
 
+  VERBS = ["get", "post", "put", "patch", "delete", "head", "options"].freeze
+
   attr_reader :path, :json, :definitions
 
   def initialize(path, json, definitions: {})
@@ -14,7 +16,11 @@ class Zilla::Versions::V20::Path
   end
 
   memoize def endpoints
+    # parameters = json.fetch("parameters", []) # weird kubernetes API definition
+
     json.each_with_object({}) do |(k, v), acc|
+      next unless VERBS.include?(k)
+
       acc[k] = Endpoint.new(path, k, v, definitions:)
     end
   end

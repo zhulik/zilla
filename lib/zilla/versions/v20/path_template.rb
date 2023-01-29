@@ -28,7 +28,7 @@ class Zilla::Versions::V20::PathTemplate
 
     return validate!(params.transform_keys(&:to_s)) if params.any?
 
-    @parameters.keys.each.with_index.with_object({}) do |(k, i), acc|
+    @parameters.each_key.with_index.with_object({}) do |(k, i), acc|
       acc[k] = args[i]
     end
   end

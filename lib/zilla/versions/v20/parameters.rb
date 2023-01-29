@@ -21,6 +21,13 @@ class Zilla::Versions::V20::Parameters
     @definitions = definitions
   end
 
+  def normalize!(*args, **params)
+    normalized = LOCATIONS.keys.inject({}) do |acc, location|
+      acc.merge(location => send("normalize_#{location}_params!", args, params))
+    end
+    validate!(normalized, params)
+  end
+
   memoize def parameters
     json.map { Parameter.new(_1, definitions:) }
         .group_by(&:name)
@@ -40,4 +47,48 @@ class Zilla::Versions::V20::Parameters
   def names = parameters.keys
   def [](name) = parameters[name]
   def each(*, **, &) = parameters.each(*, **, &)
+
+  private
+
+  def normalize_path_params!(args, params)
+    params = params.transform_keys(&:to_s).slice(*path_parameters.keys)
+
+    if args.any?
+      raise ArgumentError, "path params must be passed EITHER in args OR in params" if params.any?
+
+      params = normalize_path_args(args)
+    end
+
+    return params if params.count == path_parameters.count
+
+    raise ArgumentError,
+          "there must be exactly #{path_parameters.count} path parameters in params. Given: #{params.count}"
+  end
+
+  def normalize_query_params!(_args, _params) = {}
+  def normalize_body_params!(_args, _params) = {}
+  def normalize_form_data_params!(_args, _params) = {}
+  def normalize_header_params!(_args, _params) = {}
+
+  def validate!(normalized, params)
+    params.each_key do |k|
+      raise ArgumentError, "unknown parameter #{k.inspect}" unless parameters[k.to_s]
+    end
+
+    parameters.each_value do |parameter|
+      parameter.validate!(normalized.dig(parameter.in.to_sym, parameter.name))
+    end
+    normalized
+  end
+
+  def normalize_path_args(args)
+    if args.count == path_parameters.count
+      return path_parameters.each_key.with_index.with_object({}) do |(k, i), acc|
+        acc[k] = args[i]
+      end
+    end
+
+    raise ArgumentError,
+          "there must be exactly #{path_parameters.count} path parameters in args. Given: #{args.count}"
+  end
 end
