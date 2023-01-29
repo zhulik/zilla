@@ -76,7 +76,8 @@ class Zilla::Versions::V20::Parameters
     end
 
     parameters.each_value do |parameter|
-      parameter.validate!(normalized.dig(parameter.in.to_sym, parameter.name))
+      p = normalized.dig(parameter.in.to_sym, parameter.name)
+      parameter.validate!(p) if parameter.required? || p
     end
     normalized
   end

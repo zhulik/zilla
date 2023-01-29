@@ -16,10 +16,12 @@ class Zilla::Versions::V20::Path
   end
 
   memoize def endpoints
-    # parameters = json.fetch("parameters", []) # weird kubernetes API definition
+    parameters = json.fetch("parameters", []) # weird kubernetes API definition
 
     json.each_with_object({}) do |(k, v), acc|
       next unless VERBS.include?(k)
+
+      v = v.merge("parameters" => v.fetch("parameters", []) + parameters)
 
       acc[k] = Endpoint.new(path, k, v, definitions:)
     end

@@ -25,4 +25,5 @@ class Zilla::Versions::V20::Endpoint
   memoize def path_template = PathTemplate.new(path)
 
   memoize def parameters = Parameters.new(json["parameters"], definitions:)
+  memoize def responses = json["responses"].transform_values { |v| JSONSchemer.schema(v) }
 end

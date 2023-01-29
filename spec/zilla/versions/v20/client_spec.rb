@@ -5,7 +5,7 @@ RSpec.describe Zilla::Versions::V20::Client do
 
   it "goes brrrr" do
     stub_request(:get, "https://petstore.swagger.io/user/name")
-      .to_return(status: 200)
+      .to_return(status: 200, body: "{}")
 
     expect(client.getUserByName("name")).not_to be_nil
   end
