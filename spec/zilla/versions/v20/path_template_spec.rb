@@ -9,7 +9,9 @@ RSpec.describe Zilla::Versions::V20::PathTemplate do
     describe "#parameters" do
       subject { template.parameters }
 
-      it "returns an empty list" do
+      include_examples "returns an instance of", Array
+
+      it "returns an empty array" do
         expect(subject).to be_empty
       end
     end

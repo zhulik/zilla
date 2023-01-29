@@ -16,6 +16,8 @@ class Zilla::Versions::V20::Parameter
     end
   end
 
+  def in?(location) = json["in"] == location
+
   def validate!(value)
     errors = schema.validate(value)
 

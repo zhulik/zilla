@@ -3,6 +3,14 @@
 class Zilla::Versions::V20::Parameters
   include Zilla::Versions::V20
 
+  LOCATIONS = {
+    path: "path",
+    query: "query",
+    body: "body",
+    header: "header",
+    form_data: "formData"
+  }.freeze
+
   include Memery
 
   attr_reader :json, :definitions
@@ -16,6 +24,12 @@ class Zilla::Versions::V20::Parameters
     json.map { Parameter.new(_1, definitions:) }
         .group_by(&:name)
         .transform_values(&:first)
+  end
+
+  LOCATIONS.each do |name, key|
+    memoize(define_method("#{name}_parameters") do
+      parameters.filter { |_k, param| param.in?(key) }
+    end)
   end
 
   def empty? = parameters.empty?
