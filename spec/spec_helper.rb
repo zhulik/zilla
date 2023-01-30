@@ -8,7 +8,6 @@ require "zilla"
 
 require "syntax_suggest"
 require "webmock/rspec"
-require "async/rspec"
 
 Dir["#{__dir__}/support/**/*.rb"].each { |f| load(f) }
 
@@ -25,6 +24,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.include_context(Async::RSpec::Reactor, async: true)
   config.include_context(Support::Fixtures)
 end

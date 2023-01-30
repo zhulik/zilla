@@ -2,7 +2,6 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in async-openapi.gemspec
 gemspec
 
 gem "rake", "~> 13.0"
@@ -13,7 +12,6 @@ gem "rubocop", "~> 1.21"
 gem "rubocop-performance"
 gem "rubocop-rspec"
 
-gem "async-rspec"
 gem "simplecov"
 gem "webmock"
 

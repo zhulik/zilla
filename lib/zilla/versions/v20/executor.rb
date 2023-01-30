@@ -5,9 +5,10 @@ class Zilla::Versions::V20::Executor
 
   attr_reader :scheme, :host
 
-  def initialize(scheme, host)
+  def initialize(scheme, host, faraday_config_block:)
     @scheme = scheme
     @host = host
+    @faraday_config_block = faraday_config_block || ->(_, _target) {}
   end
 
   def call(endpoint, *args, **params)
@@ -23,7 +24,7 @@ class Zilla::Versions::V20::Executor
 
   memoize def connection
     Faraday.new("#{scheme}://#{host}") do |f|
-      f.adapter :async_http
+      @faraday_config_block.call(f, :client)
       f.response :raise_error
     end
   end

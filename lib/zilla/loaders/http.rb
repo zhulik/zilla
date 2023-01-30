@@ -3,7 +3,7 @@
 class Zilla::Loaders::HTTP < Zilla::Loaders::Loader
   def load_string
     Faraday.new(input) do |f|
-      f.adapter :async_http
+      @faraday_config_block.call(f, :loader)
       f.response :raise_error
     end.get.body
   end

@@ -5,8 +5,9 @@ class Zilla::Loaders::Loader
 
   attr_reader :input
 
-  def initialize(input)
+  def initialize(input, faraday_config_block: nil)
     @input = input
+    @faraday_config_block = faraday_config_block || ->(_f, _target) {}
   end
 
   def load

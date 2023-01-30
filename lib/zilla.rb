@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "async"
-require "async/http/faraday"
 require "faraday"
 require "oj"
 require "zeitwerk"
