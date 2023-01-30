@@ -13,9 +13,12 @@ loader.inflector.inflect(
   "api" => "API"
 )
 
-# Your code goes here...
-module Zilla # rubocop:disable Style/ClassAndModuleChildren
+module Zilla
   class Error < StandardError; end
+
+  def self.for(input, host: nil, scheme: nil, &)
+    Zilla::ClientFactory.build(input, host:, scheme:, &)
+  end
 end
 
 loader.setup

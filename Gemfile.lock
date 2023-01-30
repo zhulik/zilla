@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zilla (0.1.2)
+    zilla (0.1.3)
       faraday (~> 2.7.0)
       json_schemer (~> 0.2.0)
       memery (~> 1.4.0)
