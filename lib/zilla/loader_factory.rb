@@ -4,13 +4,13 @@ module Zilla::LoaderFactory
   class UnknownLoader < Zilla::Error; end
 
   class << self
-    def build(input, &block)
+    def build(input, faraday_config: {}, &block)
       case input
       when Hash
         Zilla::Loaders::Hash
       when String
         for_string(input)
-      end.new(input, faraday_config_block: block)
+      end.new(input, faraday_config:, faraday_config_block: block)
     rescue NoMethodError
       raise UnknownLoader, "cannot find loader for #{input.inspect}"
     end

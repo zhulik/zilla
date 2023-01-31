@@ -5,9 +5,10 @@ class Zilla::Versions::V20::Executor
 
   attr_reader :scheme, :host
 
-  def initialize(scheme, host, faraday_config_block:)
+  def initialize(scheme, host, faraday_config:, faraday_config_block:)
     @scheme = scheme
     @host = host
+    @faraday_config = faraday_config
     @faraday_config_block = faraday_config_block || ->(_, _target) {}
   end
 

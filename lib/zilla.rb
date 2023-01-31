@@ -16,8 +16,8 @@ loader.inflector.inflect(
 module Zilla
   class Error < StandardError; end
 
-  def self.for(input, host: nil, scheme: nil, &)
-    Zilla::ClientFactory.build(input, host:, scheme:, &)
+  def self.for(input, host: nil, scheme: nil, faraday_config: {}, &)
+    Zilla::ClientFactory.build(input, host:, scheme:, faraday_config:, &)
   end
 end
 

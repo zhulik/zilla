@@ -3,10 +3,11 @@
 class Zilla::Loaders::Loader
   class LoaderError < Zilla::Error; end
 
-  attr_reader :input
+  attr_reader :input, :faraday_config, :faraday_config_block
 
-  def initialize(input, faraday_config_block: nil)
+  def initialize(input, faraday_config: {}, faraday_config_block: nil)
     @input = input
+    @faraday_config = faraday_config
     @faraday_config_block = faraday_config_block || ->(_f, _target) {}
   end
 
