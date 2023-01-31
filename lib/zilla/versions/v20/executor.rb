@@ -24,7 +24,7 @@ class Zilla::Versions::V20::Executor
   private
 
   memoize def connection
-    Faraday.new("#{scheme}://#{host}") do |f|
+    Faraday.new("#{scheme}://#{host}", @faraday_config) do |f|
       @faraday_config_block.call(f, :client)
       f.response :raise_error
     end
