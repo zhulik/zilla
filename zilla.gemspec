@@ -26,11 +26,16 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 3.2.0'
 
   s.add_runtime_dependency 'faraday', '>= 1.0.1', '< 3.0'
-  s.add_runtime_dependency 'faraday-multipart'
+  s.add_runtime_dependency 'faraday-multipart', '~> 1.0.0'
 
   s.add_development_dependency 'rspec', '~> 3.6', '>= 3.6.0'
 
-  s.files         = `find *`.split("\n").uniq.sort.reject(&:empty?).reject { |f| f.include?('_spec.rb') }
+  s.files = Dir.chdir(__dir__) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      (f == __FILE__) || f.match(%r{\A(?:(?:bin|test|spec|features|docs)/|\.(?:git|circleci)|appveyor)})
+    end
+  end
+
   s.executables   = []
   s.require_paths = ['lib']
   s.metadata['rubygems_mfa_required'] = 'true'
