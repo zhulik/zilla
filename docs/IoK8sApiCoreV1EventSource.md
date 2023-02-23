@@ -1,0 +1,20 @@
+# Zilla::IoK8sApiCoreV1EventSource
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **component** | **String** | Component from which the event is generated. | [optional] |
+| **host** | **String** | Node name on which the event is generated. | [optional] |
+
+## Example
+
+```ruby
+require 'zilla'
+
+instance = Zilla::IoK8sApiCoreV1EventSource.new(
+  component: null,
+  host: null
+)
+```
+
