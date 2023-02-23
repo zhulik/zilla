@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~> 3.6', '>= 3.6.0'
 
-  s.files         = `find *`.split("\n").uniq.sort.reject(&:empty?)
+  s.files         = `find *`.split("\n").uniq.sort.reject(&:empty?).reject{ |f| f.include?("_spec.rb")}
   s.executables   = []
   s.require_paths = ['lib']
   s.metadata['rubygems_mfa_required'] = 'true'
