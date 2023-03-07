@@ -8,6 +8,18 @@ module Zilla
     CERT_PATH = "#{SERVICE_ACCOUNT_PATH}/ca.crt".freeze
     NAMESPACE_PATH = "#{SERVICE_ACCOUNT_PATH}/namespace".freeze
 
+    # https://github.com/rails/rails/blob/7-0-stable/activesupport/lib/active_support/inflector/methods.rb#LL96-L104C8
+    def self._underscore_string(camel_cased_word)
+      return camel_cased_word.to_s unless /[A-Z-]|::/.match?(camel_cased_word)
+
+      word = camel_cased_word.to_s.gsub('::', '/')
+      word.gsub!(/(?:(?<=([A-Za-z\d]))|\b)(#{@acronym_regex})(?=\b|[^a-z])/) { "#{::Regexp.last_match(1) && '_'}#{::Regexp.last_match(2).downcase}" }
+      word.gsub!(/([A-Z])(?=[A-Z][a-z])|([a-z\d])(?=[A-Z])/) { (::Regexp.last_match(1) || ::Regexp.last_match(2)) << '_' }
+      word.tr!('-', '_')
+      word.downcase!
+      word
+    end
+
     def initialize(host: nil, scheme: :http, config: nil, token: nil, current_namespace: nil)
       if [host, config].all?(&:nil?) || [host, config].none?(&:nil?)
         raise ArgumentError, 'either host or config must be passed'
@@ -27,7 +39,7 @@ module Zilla
     Zilla.constants(false).each do |class_name|
       next unless class_name.end_with?('Api')
 
-      define_method(class_name.to_s.underscore) do
+      define_method(_underscore_string(class_name.to_s)) do
         var = "@#{class_name}"
         return instance_variable_get(var) if instance_variable_defined?(var)
 
