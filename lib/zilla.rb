@@ -575,6 +575,9 @@ require 'zilla/api/storage_v1beta1_api'
 require 'zilla/api/version_api'
 require 'zilla/api/well_known_api'
 
+# Custom files
+require 'zilla/kubernetes'
+
 module Zilla
   class << self
     # Customize default settings for the SDK using block.
