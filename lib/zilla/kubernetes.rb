@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Zilla
+  def self.const_missing(name)
+    require "zilla/models/#{name.to_s.underscore}"
+    Zilla.const_get(name)
+  end
+
   class Kubernetes
     SERVICE_ACCOUNT_PATH = '/var/run/secrets/kubernetes.io/serviceaccount'
 
